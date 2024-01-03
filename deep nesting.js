@@ -39,6 +39,23 @@ function getTreeValues(tree) {
   return result;
 }
 
-// recursion
+// recursion -- подумать как сделать проще --
+function getTreeValuesRs(result, tree) {
+  const stack = Array.isArray(tree) ? tree : [tree];
+  for (let i = 0; i < stack.length; i++) {
+    if (stack[i].value) {
+      result.push(stack[i].value);
+    }
+
+    if (stack[i].children) {
+      if (i === stack.length - 1) {
+        return getTreeValuesRs(result, stack[i].children);
+      }
+      getTreeValuesRs(result, stack[i].children);
+    }
+  }
+  return result;
+}
 
 console.log(getTreeValues(tree));
+console.log(getTreeValuesRs([], tree));
